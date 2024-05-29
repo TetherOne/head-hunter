@@ -1,7 +1,7 @@
 from datetime import datetime
 
 from sqlalchemy import DateTime, func
-from sqlalchemy.orm import DeclarativeBase, declared_attr, Mapped, mapped_column
+from sqlalchemy.orm import DeclarativeBase, Mapped, declared_attr, mapped_column
 
 from utils.case_converter import camel_case_to_snake_case
 
