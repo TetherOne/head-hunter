@@ -1,8 +1,8 @@
 FROM python:3.11.4-slim
 
-RUN mkdir /job-hunter
+RUN mkdir /head-hunter
 
-WORKDIR /job-hunter
+WORKDIR /head-hunter
 
 COPY requirements.txt .
 
