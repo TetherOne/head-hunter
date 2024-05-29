@@ -12,6 +12,8 @@ def camel_case_to_snake_case(input_str: str) -> str:
     'r_servo_drive'
     >>> camel_case_to_snake_case("SDKDemo")
     'sdk_demo'
+    >>> camel_case_to_snake_case("VacancyY")
+    'vacanc_ies'
     """
     chars = []
     for c_idx, char in enumerate(input_str):
@@ -26,4 +28,9 @@ def camel_case_to_snake_case(input_str: str) -> str:
             else:
                 chars.append("_")
         chars.append(char.lower())
+
+    # Check if the string ends with 'y'
+    if chars[-1] == "y":
+        chars = chars[:-1] + ["i", "e"]
+
     return "".join(chars)
