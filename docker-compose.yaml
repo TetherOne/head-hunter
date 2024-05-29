@@ -9,6 +9,7 @@ services:
       - .:/head-hunter
     ports:
       - "8001:8000"
+
   db:
     image: postgres
     environment:
