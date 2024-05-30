@@ -1,9 +1,14 @@
+from dotenv import load_dotenv
 from pydantic import BaseModel, PostgresDsn
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
+load_dotenv()
+
+
 class ApiPrefix(BaseModel):
     prefix: str = "/api"
+    resumes: str = "/resumes"
 
 
 class DatabaseConfig(BaseModel):
