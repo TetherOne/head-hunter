@@ -4,7 +4,7 @@ services:
   app:
     build: .
     container_name: hh-app
-    command: uvicorn main:app --host 0.0.0.0 --port 8000 --reload
+    command: uvicorn main:hh_app --host 0.0.0.0 --port 8000 --reload
     volumes:
       - .:/head-hunter
     ports:
@@ -12,6 +12,7 @@ services:
 
   db:
     image: postgres
+    container_name: hh-db
     environment:
       POSTGRES_DB: hh-db
       POSTGRES_USER: admin
