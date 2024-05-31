@@ -13,3 +13,7 @@ class Resume(ResumeBase):
     id: int
     created_at: datetime
     updated_at: datetime
+
+
+class ResumeCreate(ResumeBase):
+    pass
