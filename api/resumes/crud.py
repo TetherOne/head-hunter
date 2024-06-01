@@ -43,6 +43,7 @@ async def update_resume(
     ).items():
         setattr(resume, name, value)
     await session.commit()
+    await session.refresh(resume)
     return resume
 
 

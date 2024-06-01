@@ -16,7 +16,7 @@ async def resume_by_id(
 ) -> Resume:
     """
     Вспомогательная функция для
-    получения Redirect по id
+    получения Resume по id
     """
     resume = await crud.get_resume(
         session=session,
