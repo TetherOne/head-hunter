@@ -5,6 +5,10 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 load_dotenv()
 
 
+class FileUploads(BaseModel):
+    resumes: str = "uploads/resumes/"
+
+
 class ApiPrefix(BaseModel):
     prefix: str = "/api"
     resumes: str = "/resumes"
@@ -26,6 +30,7 @@ class Settings(BaseSettings):
         env_nested_delimiter="__",
         env_prefix="FAST_API_HH__",
     )
+    dir_save: FileUploads = FileUploads()
     api: ApiPrefix = ApiPrefix()
     db: DatabaseConfig
 

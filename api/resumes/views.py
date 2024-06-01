@@ -1,12 +1,13 @@
 from typing import Annotated
 
-from fastapi import APIRouter, Depends, status
+from fastapi import APIRouter, Depends, status, UploadFile, File,
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from api.resumes import crud
 from api.resumes.dependencies import resume_by_id
 from api.resumes.schemas import Resume, ResumeCreate, ResumeUpdate
 from core.models import db_helper
+
 
 router = APIRouter(
     tags=["Resumes"],
@@ -50,11 +51,14 @@ async def create_resume(
         AsyncSession,
         Depends(db_helper.session_getter),
     ],
-    resume_create: ResumeCreate,
+    resume_create: ResumeCreate = Depends(),
+    file: UploadFile = File(None),
 ):
+    image = await crud.image_upload(file)
     return await crud.create_resume(
-        resume_create=resume_create,
         session=session,
+        resume_create=resume_create,
+        image=image,
     )
 
 

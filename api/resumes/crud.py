@@ -1,9 +1,13 @@
+import os
+import shutil
 from typing import Sequence, Optional
 
+from fastapi import UploadFile
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from api.resumes.schemas import ResumeCreate, ResumeUpdate
+from core.config import settings
 from core.models import Resume
 
 
@@ -20,6 +24,26 @@ async def get_resume(
     resume_id: int,
 ) -> Resume | None:
     return await session.get(Resume, resume_id)
+
+
+async def image_upload(
+    file: UploadFile,
+) -> Optional[str]:
+    if not file:
+        return None
+
+    upload_directory = settings.dir_save.resumes
+    if not os.path.exists(upload_directory):
+        os.makedirs(upload_directory)
+
+    file_location = os.path.join(
+        upload_directory,
+        file.filename,
+    )
+    with open(file_location, "wb+") as file_object:
+        shutil.copyfileobj(file.file, file_object)
+
+    return file_location
 
 
 async def create_resume(
