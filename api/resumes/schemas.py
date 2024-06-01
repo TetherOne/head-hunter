@@ -17,3 +17,7 @@ class Resume(ResumeBase):
 
 class ResumeCreate(ResumeBase):
     pass
+
+
+class ResumeUpdate(ResumeBase):
+    pass
