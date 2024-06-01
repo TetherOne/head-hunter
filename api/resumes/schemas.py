@@ -1,4 +1,5 @@
 from datetime import datetime
+from typing import Optional
 
 from pydantic import BaseModel
 
@@ -11,6 +12,7 @@ class ResumeBase(BaseModel):
 
 class Resume(ResumeBase):
     id: int
+    image: Optional[str]
     created_at: datetime
     updated_at: datetime
 

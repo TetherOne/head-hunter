@@ -1,5 +1,3 @@
-import os
-import aiofiles
 from typing import Sequence, Optional
 
 from fastapi import UploadFile
@@ -7,8 +5,8 @@ from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from api.resumes.schemas import ResumeCreate, ResumeUpdate
-from core.config import settings
 from core.models import Resume
+from core.s3_db.client import s3_client
 
 
 async def get_resumes(
@@ -32,21 +30,14 @@ async def image_upload(
     if not file:
         return None
 
-    upload_directory = settings.dir_save.resumes
-    if not os.path.exists(upload_directory):
-        os.makedirs(upload_directory)
-
-    file_location = os.path.join(
-        upload_directory,
-        file.filename,
-    )
-    async with aiofiles.open(
-        file_location,
-        "wb+",
-    ) as file_object:
-        await file_object.write(await file.read())
-
-    return file_location
+    object_name = file.filename
+    async with s3_client.get_client() as client:
+        await client.put_object(
+            Bucket=s3_client.bucket_name,
+            Key=object_name,
+            Body=await file.read(),
+        )
+    return object_name
 
 
 async def create_resume(
