@@ -16,15 +16,15 @@ async def get_resumes(
 
 
 async def get_resume(
-    resume_id: int,
     session: AsyncSession,
+    resume_id: int,
 ) -> Resume | None:
     return await session.get(Resume, resume_id)
 
 
 async def create_resume(
-    resume_create: ResumeCreate,
     session: AsyncSession,
+    resume_create: ResumeCreate,
 ) -> Resume:
     resume = Resume(**resume_create.model_dump())
     session.add(resume)
