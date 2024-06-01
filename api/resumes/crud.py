@@ -1,5 +1,5 @@
 import os
-import shutil
+import aiofiles
 from typing import Sequence, Optional
 
 from fastapi import UploadFile
@@ -40,8 +40,11 @@ async def image_upload(
         upload_directory,
         file.filename,
     )
-    with open(file_location, "wb+") as file_object:
-        shutil.copyfileobj(file.file, file_object)
+    async with aiofiles.open(
+        file_location,
+        "wb+",
+    ) as file_object:
+        await file_object.write(await file.read())
 
     return file_location
 
