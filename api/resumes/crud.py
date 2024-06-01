@@ -1,4 +1,4 @@
-from typing import Sequence
+from typing import Sequence, Optional
 
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -25,8 +25,12 @@ async def get_resume(
 async def create_resume(
     session: AsyncSession,
     resume_create: ResumeCreate,
+    image: Optional[str],
 ) -> Resume:
-    resume = Resume(**resume_create.model_dump())
+    resume = Resume(
+        **resume_create.dict(),
+        image=image,
+    )
     session.add(resume)
     await session.commit()
     await session.refresh(resume)
