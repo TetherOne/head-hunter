@@ -6,7 +6,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from api.resumes.schemas import ResumeCreate, ResumeUpdate
 from core.models import Resume
-from core.s3_db.client import s3_client
+from core.s3_service.client import s3_client
 
 
 async def get_resumes(
