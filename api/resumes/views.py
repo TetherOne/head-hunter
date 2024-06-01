@@ -8,7 +8,6 @@ from api.resumes.dependencies import resume_by_id
 from api.resumes.schemas import Resume, ResumeCreate
 from core.models import db_helper
 
-
 router = APIRouter(
     tags=["Resumes"],
 )

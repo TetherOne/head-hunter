@@ -22,7 +22,7 @@ class S3Client:
     @asynccontextmanager
     async def get_client(self):
         async with self.session.create_client(
-                "s3",
-                **self.config,
+            "s3",
+            **self.config,
         ) as client:
             yield client

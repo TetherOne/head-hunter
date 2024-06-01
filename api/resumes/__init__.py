@@ -4,7 +4,6 @@ from core.config import settings
 
 from .views import router as resumes_router
 
-
 router = APIRouter()
 
 router.include_router(
