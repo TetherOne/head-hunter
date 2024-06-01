@@ -1,11 +1,4 @@
-__all__ = (
-    "db_helper",
-    "Base",
-    "Resume",
-    "Vacancy",
-    "User",
-    "Contact"
-)
+__all__ = ("db_helper", "Base", "Resume", "Vacancy", "User", "Contact")
 
 from core.models.base import Base
 from core.models.contacts import Contact
