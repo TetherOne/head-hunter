@@ -1,6 +1,12 @@
 from typing import Annotated
 
-from fastapi import APIRouter, Depends, status, UploadFile, File,
+from fastapi import (
+    APIRouter,
+    Depends,
+    status,
+    UploadFile,
+    File,
+)
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from api.resumes import crud
