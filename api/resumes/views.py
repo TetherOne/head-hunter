@@ -46,11 +46,11 @@ async def get_resume(
     status_code=status.HTTP_201_CREATED,
 )
 async def create_resume(
-    resume_create: ResumeCreate,
     session: Annotated[
         AsyncSession,
         Depends(db_helper.session_getter),
     ],
+    resume_create: ResumeCreate,
 ):
     return await crud.create_resume(
         resume_create=resume_create,
@@ -63,15 +63,32 @@ async def create_resume(
     status_code=status.HTTP_201_CREATED,
 )
 async def update_qrcode(
-    resume_update: ResumeUpdate,
     session: Annotated[
         AsyncSession,
         Depends(db_helper.session_getter),
     ],
+    resume_update: ResumeUpdate,
     resume: Resume = Depends(resume_by_id),
 ):
     return await crud.update_resume(
         session=session,
         resume=resume,
         resume_update=resume_update,
+    )
+
+
+@router.delete(
+    "/delete/{resume_id}/",
+    status_code=status.HTTP_204_NO_CONTENT,
+)
+async def delete_resume(
+    session: Annotated[
+        AsyncSession,
+        Depends(db_helper.session_getter),
+    ],
+    resume: Resume = Depends(resume_by_id),
+) -> None:
+    await crud.delete_resume(
+        session=session,
+        resume=resume,
     )

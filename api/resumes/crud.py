@@ -44,3 +44,11 @@ async def update_resume(
         setattr(resume, name, value)
     await session.commit()
     return resume
+
+
+async def delete_resume(
+    session: AsyncSession,
+    resume: Resume,
+) -> None:
+    await session.delete(resume)
+    await session.commit()
