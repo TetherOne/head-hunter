@@ -5,7 +5,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from api.resumes import crud
 from api.resumes.dependencies import resume_by_id
-from api.resumes.schemas import Resume, ResumeCreate
+from api.resumes.schemas import Resume, ResumeCreate, ResumeUpdate
 from core.models import db_helper
 
 router = APIRouter(
@@ -55,4 +55,23 @@ async def create_resume(
     return await crud.create_resume(
         resume_create=resume_create,
         session=session,
+    )
+
+
+@router.patch(
+    "/update/{resume_id}/",
+    status_code=status.HTTP_201_CREATED,
+)
+async def update_qrcode(
+    resume_update: ResumeUpdate,
+    session: Annotated[
+        AsyncSession,
+        Depends(db_helper.session_getter),
+    ],
+    resume: Resume = Depends(resume_by_id),
+):
+    return await crud.update_resume(
+        session=session,
+        resume=resume,
+        resume_update=resume_update,
     )

@@ -38,7 +38,9 @@ async def update_resume(
     resume: Resume,
     resume_update: ResumeUpdate,
 ):
-    for name, value in resume_update.model_dump().items():
+    for name, value in resume_update.model_dump(
+        exclude_unset=True,
+    ).items():
         setattr(resume, name, value)
     await session.commit()
     return resume

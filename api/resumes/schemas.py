@@ -19,5 +19,7 @@ class ResumeCreate(ResumeBase):
     pass
 
 
-class ResumeUpdate(ResumeBase):
-    pass
+class ResumeUpdate(ResumeCreate):
+    job_tittle: str | None = None
+    description: str | None = None
+    salary: int | None = None
