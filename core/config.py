@@ -8,6 +8,7 @@ load_dotenv()
 class ApiPrefix(BaseModel):
     prefix: str = "/api"
     resumes: str = "/resumes"
+    contacts: str = "/contacts"
 
 
 class DatabaseConfig(BaseModel):

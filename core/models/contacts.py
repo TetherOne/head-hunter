@@ -10,8 +10,8 @@ if TYPE_CHECKING:
 
 
 class Contact(Base):
-    phone: Mapped[str]
-    email: Mapped[str]
+    phone: Mapped[str] = mapped_column(nullable=True)
+    email: Mapped[str] = mapped_column(nullable=True)
     telegram: Mapped[str] = mapped_column(nullable=True)
     linkedin: Mapped[str] = mapped_column(nullable=True)
     github: Mapped[str] = mapped_column(nullable=True)
