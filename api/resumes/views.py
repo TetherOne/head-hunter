@@ -1,12 +1,6 @@
 from typing import Annotated
 
-from fastapi import (
-    APIRouter,
-    Depends,
-    status,
-    UploadFile,
-    File,
-)
+from fastapi import APIRouter, Depends, File, UploadFile, status
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from api.resumes import crud
@@ -14,7 +8,6 @@ from api.resumes.dependencies import resume_by_id
 from api.resumes.schemas import Resume, ResumeCreate, ResumeUpdate
 from core.models import db_helper
 from core.s3_service.client import s3_client
-
 
 router = APIRouter(
     tags=["Resumes"],
@@ -109,7 +102,7 @@ async def delete_resume(
     "/image/{object_name}/{destination_path}",
     status_code=status.HTTP_200_OK,
 )
-async def get_image_view(
+async def get_resume_image(
     object_name: str,
     destination_path: str,
 ):
