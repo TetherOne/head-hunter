@@ -24,4 +24,10 @@ class VacancyCreate(VacancyBase):
 
 
 class VacancyUpdate(VacancyBase):
-    pass
+    job_tittle: str | None = None
+    description: str | None = None
+    experience: str | None = None
+    salary: int | None = None
+    address: str | None = None
+    phone: str | None = None
+    email: str | None = None

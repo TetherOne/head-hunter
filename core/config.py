@@ -6,6 +6,7 @@ class ApiPrefix(BaseModel):
     prefix: str = "/api"
     resumes: str = "/resumes"
     contacts: str = "/contacts"
+    vacancies: str = "/vacancies"
 
 
 class DatabaseConfig(BaseModel):
