@@ -13,6 +13,7 @@ from api.resumes import crud
 from api.resumes.dependencies import resume_by_id
 from api.resumes.schemas import Resume, ResumeCreate, ResumeUpdate
 from core.models import db_helper
+from core.s3_service.client import s3_client
 
 
 router = APIRouter(
@@ -101,4 +102,30 @@ async def delete_resume(
     await crud.delete_resume(
         session=session,
         resume=resume,
+    )
+
+
+@router.get(
+    "/image/{object_name}/{destination_path}",
+    status_code=status.HTTP_200_OK,
+)
+async def get_image_view(
+    object_name: str,
+    destination_path: str,
+):
+    await s3_client.get_file(
+        object_name,
+        destination_path,
+    )
+
+
+@router.delete(
+    "/delete/{image_name}",
+    status_code=status.HTTP_204_NO_CONTENT,
+)
+async def delete_resume_image(
+    object_name: str,
+) -> None:
+    await s3_client.delete_file(
+        object_name,
     )
