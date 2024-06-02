@@ -38,6 +38,7 @@ markdown-it-py==3.0.0
 MarkupSafe==2.1.5
 mccabe==0.7.0
 mdurl==0.1.2
+motor==3.4.0
 multidict==6.0.5
 nodeenv==1.9.0
 orjson==3.10.3
@@ -52,6 +53,7 @@ pydantic-settings==2.2.1
 pydantic_core==2.18.2
 pyflakes==3.2.0
 Pygments==2.18.0
+pymongo==4.7.2
 pypng==0.20220715.0
 python-dateutil==2.9.0.post0
 python-dotenv==1.0.1

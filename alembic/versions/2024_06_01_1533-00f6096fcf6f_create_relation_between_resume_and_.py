@@ -20,12 +20,40 @@ depends_on: Union[str, Sequence[str], None] = None
 
 
 def upgrade() -> None:
-    op.add_column("contacts", sa.Column("resume_id", sa.Integer(), nullable=False))
-    op.create_unique_constraint(None, "contacts", ["resume_id"])
-    op.create_foreign_key(None, "contacts", "resumes", ["resume_id"], ["id"])
+    op.add_column(
+        "contacts",
+        sa.Column(
+            "resume_id",
+            sa.Integer(),
+            nullable=False,
+        ),
+    )
+    op.create_unique_constraint(
+        None,
+        "contacts",
+        ["resume_id"],
+    )
+    op.create_foreign_key(
+        None,
+        "contacts",
+        "resumes",
+        ["resume_id"],
+        ["id"],
+    )
 
 
 def downgrade() -> None:
-    op.drop_constraint(None, "contacts", type_="foreignkey")
-    op.drop_constraint(None, "contacts", type_="unique")
-    op.drop_column("contacts", "resume_id")
+    op.drop_constraint(
+        None,
+        "contacts",
+        type_="foreignkey",
+    )
+    op.drop_constraint(
+        None,
+        "contacts",
+        type_="unique",
+    )
+    op.drop_column(
+        "contacts",
+        "resume_id",
+    )

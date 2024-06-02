@@ -20,10 +20,30 @@ depends_on: Union[str, Sequence[str], None] = None
 
 
 def upgrade() -> None:
-    op.add_column("vacancies", sa.Column("experience", sa.String(), nullable=False))
-    op.add_column("vacancies", sa.Column("salary", sa.Integer(), nullable=False))
+    op.add_column(
+        "vacancies",
+        sa.Column(
+            "experience",
+            sa.String(),
+            nullable=False,
+        ),
+    )
+    op.add_column(
+        "vacancies",
+        sa.Column(
+            "salary",
+            sa.Integer(),
+            nullable=False,
+        ),
+    )
 
 
 def downgrade() -> None:
-    op.drop_column("vacancies", "salary")
-    op.drop_column("vacancies", "experience")
+    op.drop_column(
+        "vacancies",
+        "salary",
+    )
+    op.drop_column(
+        "vacancies",
+        "experience",
+    )

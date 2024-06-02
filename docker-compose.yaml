@@ -9,6 +9,9 @@ services:
       - .:/head-hunter
     ports:
       - "8001:8000"
+    depends_on:
+      - db
+#      - mongo
 
   db:
     image: postgres
@@ -19,3 +22,9 @@ services:
       POSTGRES_PASSWORD: admin
     ports:
       - "5428:5432"
+#
+#  mongo:
+#    image: mongo
+#    container_name: hh-mongo
+#    ports:
+#      - "27017:27017"

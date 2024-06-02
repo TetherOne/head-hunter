@@ -20,10 +20,30 @@ depends_on: Union[str, Sequence[str], None] = None
 
 
 def upgrade() -> None:
-    op.alter_column("contacts", "phone", existing_type=sa.VARCHAR(), nullable=True)
-    op.alter_column("contacts", "email", existing_type=sa.VARCHAR(), nullable=True)
+    op.alter_column(
+        "contacts",
+        "phone",
+        existing_type=sa.VARCHAR(),
+        nullable=True,
+    )
+    op.alter_column(
+        "contacts",
+        "email",
+        existing_type=sa.VARCHAR(),
+        nullable=True,
+    )
 
 
 def downgrade() -> None:
-    op.alter_column("contacts", "email", existing_type=sa.VARCHAR(), nullable=False)
-    op.alter_column("contacts", "phone", existing_type=sa.VARCHAR(), nullable=False)
+    op.alter_column(
+        "contacts",
+        "email",
+        existing_type=sa.VARCHAR(),
+        nullable=False,
+    )
+    op.alter_column(
+        "contacts",
+        "phone",
+        existing_type=sa.VARCHAR(),
+        nullable=False,
+    )

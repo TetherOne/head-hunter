@@ -7,6 +7,7 @@ class ApiPrefix(BaseModel):
     resumes: str = "/resumes"
     contacts: str = "/contacts"
     vacancies: str = "/vacancies"
+    auth: str = "/auth"
 
 
 class DatabaseConfig(BaseModel):
