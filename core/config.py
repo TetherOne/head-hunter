@@ -27,7 +27,7 @@ class S3Config(BaseModel):
 
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(
-        env_file=".env",
+        env_file="env/.env",
         case_sensitive=False,
         env_nested_delimiter="__",
         env_prefix="FAST_API_HH__",
