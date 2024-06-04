@@ -42,7 +42,7 @@ services:
       context: .
       dockerfile: Dockerfile
     restart: always
-    command: celery -A api.email worker -l info
+    command: celery -A api.email.tasks worker -l info
     volumes:
       - .:/head-hunter
     depends_on:
