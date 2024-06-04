@@ -15,8 +15,8 @@ def send_email_task(
     receiver_email,
 ):
     sender_email = email_user
-    subject = "Subject of the Email"
-    body = "Body of the Email"
+    subject = "Head Hunter Team"
+    body = "Спасибо за то, что выбрали наш сервис!"
 
     message = MIMEMultipart()
     message["From"] = sender_email
