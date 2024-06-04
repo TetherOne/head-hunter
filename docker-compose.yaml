@@ -11,6 +11,8 @@ services:
       - "8001:8000"
     depends_on:
       - db
+      - rabbitmq
+      - worker
 
   db:
     image: postgres
@@ -21,3 +23,28 @@ services:
       POSTGRES_PASSWORD: admin
     ports:
       - "5428:5432"
+
+  rabbitmq:
+    hostname: rabbitmq
+    image: rabbitmq:3-management
+    restart: on-failure
+    healthcheck:
+      test: rabbitmq-diagnostics -q ping
+      interval: 30s
+      timeout: 30s
+      retries: 3
+    ports:
+      - "15672:15672"
+      - "5672:5672"
+
+  worker:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: always
+    command: celery -A api.email worker -l info
+    volumes:
+      - .:/head-hunter
+    depends_on:
+      rabbitmq:
+        condition: service_healthy

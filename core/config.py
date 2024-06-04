@@ -2,6 +2,14 @@ from pydantic import BaseModel, SecretStr, PostgresDsn
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
+class EmailConfig(BaseModel):
+    host: str
+    port: str
+    user: str
+    password: str
+    use_ssl: bool
+
+
 class ApiPrefix(BaseModel):
     prefix: str = "/api"
     resumes: str = "/resumes"
@@ -42,6 +50,7 @@ class Settings(BaseSettings):
     api: ApiPrefix = ApiPrefix()
     s3: S3Config
     db: DatabaseConfig
+    email: EmailConfig
     auth_jwt: AuthJWT = AuthJWT()
 
 
