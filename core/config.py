@@ -1,5 +1,4 @@
-from fastapi import Path
-from pydantic import BaseModel, PostgresDsn
+from pydantic import BaseModel, SecretStr, PostgresDsn
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -20,15 +19,15 @@ class DatabaseConfig(BaseModel):
 
 
 class S3Config(BaseModel):
-    access_key: str
-    secret_key: str
+    access_key: SecretStr
+    secret_key: SecretStr
     endpoint_url: str
     bucket_name: str
 
 
 class AuthJWT(BaseModel):
-    private_key_path: Path = "env/jwt-private.pem"
-    public_key_path: Path = "env/jwt-public.pem"
+    private_key_path: str = "env/jwt-private.pem"
+    public_key_path: str = "env/jwt-public.pem"
     algorithm: str = "RS256"
 
 
@@ -38,6 +37,7 @@ class Settings(BaseSettings):
         case_sensitive=False,
         env_nested_delimiter="__",
         env_prefix="FAST_API_HH__",
+        arbitrary_types_allowed=True,
     )
     api: ApiPrefix = ApiPrefix()
     s3: S3Config
