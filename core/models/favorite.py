@@ -1,19 +1,15 @@
-from sqlalchemy import Column, ForeignKey, Integer, UniqueConstraint
-from sqlalchemy.orm import relationship
+from sqlalchemy import ForeignKey, UniqueConstraint
+from sqlalchemy.orm import relationship, mapped_column
 
 from core.models import Base
 
 
 class Favorite(Base):
-    vacancy_id = Column(
-        Integer,
+    vacancy_id = mapped_column(
         ForeignKey("vacancies.id"),
-        primary_key=True,
     )
-    user_id = Column(
-        Integer,
+    user_id = mapped_column(
         ForeignKey("users.id"),
-        primary_key=True,
     )
 
     vacancy = relationship(
