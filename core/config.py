@@ -1,4 +1,4 @@
-from pydantic import BaseModel, SecretStr, PostgresDsn
+from pydantic import BaseModel, PostgresDsn, SecretStr
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 

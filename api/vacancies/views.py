@@ -8,7 +8,6 @@ from api.vacancies.dependencies import vacancy_by_id
 from api.vacancies.schemas import Vacancy, VacancyCreate, VacancyUpdate
 from core.models import db_helper
 
-
 router = APIRouter(
     tags=["Vacancies"],
 )

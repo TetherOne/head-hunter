@@ -4,7 +4,6 @@ from core.config import settings
 
 from .views import router as email_router
 
-
 router = APIRouter()
 
 

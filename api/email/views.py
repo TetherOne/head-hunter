@@ -1,9 +1,8 @@
-from api.email.schemas import EmailSend
-from api.email.tasks import send_email_task
 from fastapi import APIRouter, status
 
+from api.email.schemas import EmailSend
+from api.email.tasks import send_email_task
 from core.config import settings
-
 
 router = APIRouter(tags=["Email"])
 
