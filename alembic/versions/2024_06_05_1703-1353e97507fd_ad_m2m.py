@@ -20,14 +20,54 @@ depends_on: Union[str, Sequence[str], None] = None
 
 
 def upgrade() -> None:
-    op.add_column("favorites", sa.Column("vacancy_id", sa.Integer(), nullable=False))
-    op.add_column("favorites", sa.Column("user_id", sa.Integer(), nullable=False))
-    op.create_foreign_key(None, "favorites", "vacancies", ["vacancy_id"], ["id"])
-    op.create_foreign_key(None, "favorites", "users", ["user_id"], ["id"])
+    op.add_column(
+        "favorites",
+        sa.Column(
+            "vacancy_id",
+            sa.Integer(),
+            nullable=False,
+        ),
+    )
+    op.add_column(
+        "favorites",
+        sa.Column(
+            "user_id",
+            sa.Integer(),
+            nullable=False,
+        ),
+    )
+    op.create_foreign_key(
+        None,
+        "favorites",
+        "vacancies",
+        ["vacancy_id"],
+        ["id"],
+    )
+    op.create_foreign_key(
+        None,
+        "favorites",
+        "users",
+        ["user_id"],
+        ["id"],
+    )
 
 
 def downgrade() -> None:
-    op.drop_constraint(None, "favorites", type_="foreignkey")
-    op.drop_constraint(None, "favorites", type_="foreignkey")
-    op.drop_column("favorites", "user_id")
-    op.drop_column("favorites", "vacancy_id")
+    op.drop_constraint(
+        None,
+        "favorites",
+        type_="foreignkey",
+    )
+    op.drop_constraint(
+        None,
+        "favorites",
+        type_="foreignkey",
+    )
+    op.drop_column(
+        "favorites",
+        "user_id",
+    )
+    op.drop_column(
+        "favorites",
+        "vacancy_id",
+    )
