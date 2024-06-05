@@ -10,5 +10,5 @@ class User(Base):
     password: Mapped[str]
     favorites = relationship(
         "Favorite",
-        back_populates="vacancy",
+        back_populates="user",
     )

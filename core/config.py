@@ -17,6 +17,7 @@ class ApiPrefix(BaseModel):
     vacancies: str = "/vacancies"
     auth: str = "/auth"
     email: str = "/email"
+    favorites: str = "/favorites"
 
 
 class DatabaseConfig(BaseModel):
