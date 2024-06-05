@@ -1,4 +1,4 @@
-from sqlalchemy.orm import Mapped
+from sqlalchemy.orm import Mapped, relationship
 
 from core.models import Base
 
@@ -11,3 +11,7 @@ class Vacancy(Base):
     address: Mapped[str | None]
     phone: Mapped[str | None]
     email: Mapped[str | None]
+    favorites = relationship(
+        "Favorite",
+        back_populates="vacancy",
+    )

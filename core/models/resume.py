@@ -5,7 +5,7 @@ from sqlalchemy.orm import Mapped, relationship
 from core.models.base import Base
 
 if TYPE_CHECKING:
-    from core.models.contacts import Contact
+    from core.models.contact import Contact
 
 
 class Resume(Base):
