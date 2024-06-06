@@ -1,4 +1,4 @@
-from typing import Sequence, Optional
+from typing import Optional, Sequence
 
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -13,7 +13,7 @@ async def get_favorites(
     vacancy_id: Optional[int] = None,
 ) -> Sequence[Favorite]:
     stmt = select(Favorite).order_by(
-        Favorite.id,
+        Favorite.created_at.desc(),
     )
     if user_id is not None:
         stmt = stmt.where(

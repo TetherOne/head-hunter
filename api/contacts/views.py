@@ -1,6 +1,6 @@
 from typing import Annotated
 
-from fastapi import APIRouter, Depends, status
+from fastapi import APIRouter, Depends, status, Query
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from api.contacts import crud
@@ -23,9 +23,24 @@ async def get_contacts(
         AsyncSession,
         Depends(db_helper.session_getter),
     ],
+    resume_id: int = Query(
+        None,
+        description="Filter contacts by resume_id",
+    ),
+    skip: int = Query(
+        0,
+        description="Skip contacts",
+    ),
+    limit: int = Query(
+        2,
+        description="Limit the number of contact",
+    ),
 ):
     return await crud.get_contacts(
         session=session,
+        resume_id=resume_id,
+        skip=skip,
+        limit=limit,
     )
 
 

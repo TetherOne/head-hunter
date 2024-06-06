@@ -11,8 +11,17 @@ from core.s3_service.client import s3_client
 
 async def get_resumes(
     session: AsyncSession,
+    skip: int,
+    limit: int,
 ) -> Sequence[Resume]:
-    stmt = select(Resume).order_by(Resume.id)
+    stmt = (
+        select(Resume)
+        .order_by(
+            Resume.created_at.desc(),
+        )
+        .offset(skip)
+        .limit(limit)
+    )
     result = await session.scalars(stmt)
     return result.all()
 

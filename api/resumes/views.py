@@ -1,6 +1,6 @@
 from typing import Annotated
 
-from fastapi import APIRouter, Depends, File, UploadFile, status
+from fastapi import APIRouter, Depends, File, Query, UploadFile, status
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from api.resumes import crud
@@ -24,9 +24,19 @@ async def get_resumes(
         AsyncSession,
         Depends(db_helper.session_getter),
     ],
+    skip: int = Query(
+        0,
+        description="Skip resumes",
+    ),
+    limit: int = Query(
+        2,
+        description="Limit the number of resumes",
+    ),
 ):
     return await crud.get_resumes(
         session=session,
+        skip=skip,
+        limit=limit,
     )
 
 

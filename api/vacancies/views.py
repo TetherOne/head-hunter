@@ -1,6 +1,6 @@
 from typing import Annotated
 
-from fastapi import APIRouter, Depends, status
+from fastapi import APIRouter, Depends, Query, status
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from api.vacancies import crud
@@ -23,9 +23,19 @@ async def get_vacancies(
         AsyncSession,
         Depends(db_helper.session_getter),
     ],
+    skip: int = Query(
+        0,
+        description="Skip vacancies",
+    ),
+    limit: int = Query(
+        2,
+        description="Limit the number of vacancies",
+    ),
 ):
     return await crud.get_vacancies(
         session=session,
+        skip=skip,
+        limit=limit,
     )
 
 
@@ -34,7 +44,7 @@ async def get_vacancies(
     response_model=Vacancy,
     status_code=status.HTTP_200_OK,
 )
-async def get_contact(
+async def get_vacancy(
     vacancy: Vacancy = Depends(vacancy_by_id),
 ):
     return vacancy

@@ -9,8 +9,24 @@ from core.models import Contact
 
 async def get_contacts(
     session: AsyncSession,
+    resume_id: int = None,
+    skip: int = 0,
+    limit: int = 2,
 ) -> Sequence[Contact]:
-    stmt = select(Contact).order_by(Contact.id)
+    stmt = (
+        select(Contact)
+        .order_by(
+            Contact.created_at.desc(),
+        )
+        .offset(skip)
+        .limit(limit)
+    )
+
+    if resume_id is not None:
+        stmt = stmt.filter(
+            Contact.resume_id == resume_id,
+        )
+
     result = await session.scalars(stmt)
     return result.all()
 

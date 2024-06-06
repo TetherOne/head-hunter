@@ -9,10 +9,19 @@ from core.models import Vacancy
 
 async def get_vacancies(
     session: AsyncSession,
+    skip: int = 0,
+    limit: int = 10,
 ) -> Sequence[Vacancy]:
-    stmt = select(Vacancy).order_by(Vacancy.id)
-    result = await session.scalars(stmt)
-    return result.all()
+    stmt = (
+        select(Vacancy)
+        .order_by(
+            Vacancy.created_at.desc(),
+        )
+        .offset(skip)
+        .limit(limit)
+    )
+    result = await session.execute(stmt)
+    return result.scalars().all()
 
 
 async def get_vacancy(
