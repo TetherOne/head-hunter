@@ -11,6 +11,7 @@ services:
       - "8001:8000"
     depends_on:
       - db
+      - redis
       - rabbitmq
       - worker
 
@@ -23,6 +24,12 @@ services:
       POSTGRES_PASSWORD: admin
     ports:
       - "5428:5432"
+
+  redis:
+    image: redis
+    container_name: hh-redis
+    ports:
+      - "6379:6379"
 
   rabbitmq:
     hostname: rabbitmq
