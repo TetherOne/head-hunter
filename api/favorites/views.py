@@ -1,4 +1,4 @@
-from typing import Annotated
+from typing import Annotated, Optional
 
 from fastapi import APIRouter, Depends, status
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -23,9 +23,13 @@ async def get_favorites(
         AsyncSession,
         Depends(db_helper.session_getter),
     ],
+    user_id: Optional[int] = None,
+    vacancy_id: Optional[int] = None,
 ):
     return await crud.get_favorites(
         session=session,
+        user_id=user_id,
+        vacancy_id=vacancy_id,
     )
 
 

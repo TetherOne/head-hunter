@@ -1,4 +1,4 @@
-from typing import Sequence
+from typing import Sequence, Optional
 
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -9,10 +9,20 @@ from core.models import Favorite
 
 async def get_favorites(
     session: AsyncSession,
+    user_id: Optional[int] = None,
+    vacancy_id: Optional[int] = None,
 ) -> Sequence[Favorite]:
     stmt = select(Favorite).order_by(
         Favorite.id,
     )
+    if user_id is not None:
+        stmt = stmt.where(
+            Favorite.user_id == user_id,
+        )
+    if vacancy_id is not None:
+        stmt = stmt.where(
+            Favorite.vacancy_id == vacancy_id,
+        )
     result = await session.scalars(stmt)
     return result.all()
 
