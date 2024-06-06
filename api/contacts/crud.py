@@ -3,7 +3,7 @@ from typing import Sequence
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from api.contacts.schemas import ContactCreate, ContactUpdate
+from api.contacts.schemas import ContactCreate, ContactUpdate, ContactSchema
 from core.models import Contact
 
 
@@ -50,7 +50,7 @@ async def create_contact(
 
 
 async def update_contact(
-    contact: Contact,
+    contact: ContactSchema,
     contact_update: ContactUpdate,
     session: AsyncSession,
 ):
@@ -64,7 +64,7 @@ async def update_contact(
 
 
 async def delete_contact(
-    contact: Contact,
+    contact: ContactSchema,
     session: AsyncSession,
 ):
     await session.delete(contact)

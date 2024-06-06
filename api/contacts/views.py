@@ -5,7 +5,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from api.contacts import crud
 from api.contacts.dependencies import contact_by_id
-from api.contacts.schemas import Contact, ContactCreate, ContactUpdate
+from api.contacts.schemas import ContactSchema, ContactCreate, ContactUpdate
 from core.models import db_helper
 
 router = APIRouter(
@@ -15,7 +15,7 @@ router = APIRouter(
 
 @router.get(
     "/",
-    response_model=list[Contact],
+    response_model=list[ContactSchema],
     status_code=status.HTTP_200_OK,
 )
 async def get_contacts(
@@ -46,11 +46,11 @@ async def get_contacts(
 
 @router.get(
     "/{contact_id}/",
-    response_model=Contact,
+    response_model=ContactSchema,
     status_code=status.HTTP_200_OK,
 )
 async def get_contact(
-    contact: Contact = Depends(contact_by_id),
+    contact: ContactSchema = Depends(contact_by_id),
 ):
     return contact
 
@@ -83,7 +83,7 @@ async def update_contact(
         Depends(db_helper.session_getter),
     ],
     contact_update: ContactUpdate,
-    contact: Contact = Depends(contact_by_id),
+    contact: ContactSchema = Depends(contact_by_id),
 ):
     return await crud.update_contact(
         session=session,
@@ -101,7 +101,7 @@ async def delete_contact(
         AsyncSession,
         Depends(db_helper.session_getter),
     ],
-    contact: Contact = Depends(contact_by_id),
+    contact: ContactSchema = Depends(contact_by_id),
 ) -> None:
     await crud.delete_contact(
         session=session,

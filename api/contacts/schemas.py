@@ -12,7 +12,7 @@ class ContactBase(BaseModel):
     gitlab: str | None = None
 
 
-class Contact(ContactBase):
+class ContactSchema(ContactBase):
     id: int
     created_at: datetime
     updated_at: datetime

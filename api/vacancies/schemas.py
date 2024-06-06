@@ -13,7 +13,7 @@ class VacancyBase(BaseModel):
     email: str | None = None
 
 
-class Vacancy(VacancyBase):
+class VacancySchema(VacancyBase):
     id: int
     created_at: datetime
     updated_at: datetime

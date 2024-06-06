@@ -3,7 +3,7 @@ from typing import Sequence
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from api.vacancies.schemas import VacancyCreate, VacancyUpdate
+from api.vacancies.schemas import VacancyCreate, VacancyUpdate, VacancySchema
 from core.models import Vacancy
 
 
@@ -43,7 +43,7 @@ async def create_vacancy(
 
 
 async def update_vacancy(
-    vacancy: Vacancy,
+    vacancy: VacancySchema,
     vacancy_update: VacancyUpdate,
     session: AsyncSession,
 ):
@@ -57,7 +57,7 @@ async def update_vacancy(
 
 
 async def delete_contact(
-    vacancy: Vacancy,
+    vacancy: VacancySchema,
     session: AsyncSession,
 ):
     await session.delete(vacancy)

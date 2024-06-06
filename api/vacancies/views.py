@@ -5,7 +5,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from api.vacancies import crud
 from api.vacancies.dependencies import vacancy_by_id
-from api.vacancies.schemas import Vacancy, VacancyCreate, VacancyUpdate
+from api.vacancies.schemas import VacancySchema, VacancyCreate, VacancyUpdate
 from core.models import db_helper
 
 router = APIRouter(
@@ -15,7 +15,7 @@ router = APIRouter(
 
 @router.get(
     "/",
-    response_model=list[Vacancy],
+    response_model=list[VacancySchema],
     status_code=status.HTTP_200_OK,
 )
 async def get_vacancies(
@@ -41,11 +41,11 @@ async def get_vacancies(
 
 @router.get(
     "/{contact_id}/",
-    response_model=Vacancy,
+    response_model=VacancySchema,
     status_code=status.HTTP_200_OK,
 )
 async def get_vacancy(
-    vacancy: Vacancy = Depends(vacancy_by_id),
+    vacancy: VacancySchema = Depends(vacancy_by_id),
 ):
     return vacancy
 
@@ -78,7 +78,7 @@ async def update_vacancy(
         Depends(db_helper.session_getter),
     ],
     vacancy_update: VacancyUpdate,
-    vacancy: Vacancy = Depends(vacancy_by_id),
+    vacancy: VacancySchema = Depends(vacancy_by_id),
 ):
     return await crud.update_vacancy(
         session=session,
@@ -96,7 +96,7 @@ async def delete_contact(
         AsyncSession,
         Depends(db_helper.session_getter),
     ],
-    vacancy: Vacancy = Depends(vacancy_by_id),
+    vacancy: VacancySchema = Depends(vacancy_by_id),
 ) -> None:
     await crud.delete_contact(
         session=session,

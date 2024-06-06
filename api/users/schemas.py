@@ -3,19 +3,19 @@ from datetime import datetime
 from pydantic import BaseModel, EmailStr
 
 
-class UserSchema(BaseModel):
+class UserBase(BaseModel):
     username: str
     email: EmailStr
     password: str
 
 
-class UserBase(UserSchema):
+class UserSchema(UserBase):
     id: int
     created_at: datetime
     updated_at: datetime
 
 
-class UserRegister(UserSchema):
+class UserRegister(UserBase):
     pass
 
 
