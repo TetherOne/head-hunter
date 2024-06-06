@@ -5,6 +5,7 @@ from api.email import router as emails_router
 from api.favorites import router as favorites_router
 from api.resumes import router as resumes_router
 from api.vacancies import router as vacancies_router
+from api.users import router as users_router
 from core.config import settings
 
 router = APIRouter(
@@ -15,3 +16,4 @@ router.include_router(contacts_router)
 router.include_router(vacancies_router)
 router.include_router(emails_router)
 router.include_router(favorites_router)
+router.include_router(users_router)

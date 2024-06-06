@@ -5,8 +5,13 @@ from core.models import Base
 
 
 class User(Base):
-    username: Mapped[str] = mapped_column(String(50))
-    email: Mapped[str]
+    username: Mapped[str] = mapped_column(
+        String(50),
+        unique=True,
+    )
+    email: Mapped[str] = mapped_column(
+        unique=True,
+    )
     password: Mapped[str]
     favorites = relationship(
         "Favorite",
