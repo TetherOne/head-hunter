@@ -1,11 +1,11 @@
 from typing import Annotated
 
-from fastapi import APIRouter, Depends, status, Query
+from fastapi import APIRouter, Depends, Query, status
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from api.contacts import crud
 from api.contacts.dependencies import contact_by_id
-from api.contacts.schemas import ContactSchema, ContactCreate, ContactUpdate
+from api.contacts.schemas import ContactCreate, ContactSchema, ContactUpdate
 from core.models import db_helper
 
 router = APIRouter(

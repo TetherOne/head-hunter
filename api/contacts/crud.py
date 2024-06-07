@@ -3,7 +3,7 @@ from typing import Sequence
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from api.contacts.schemas import ContactCreate, ContactUpdate, ContactSchema
+from api.contacts.schemas import ContactCreate, ContactSchema, ContactUpdate
 from core.models import Contact
 
 

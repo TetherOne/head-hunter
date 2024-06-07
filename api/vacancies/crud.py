@@ -3,7 +3,7 @@ from typing import Sequence
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from api.vacancies.schemas import VacancyCreate, VacancyUpdate, VacancySchema
+from api.vacancies.schemas import VacancyCreate, VacancySchema, VacancyUpdate
 from core.models import Vacancy
 
 

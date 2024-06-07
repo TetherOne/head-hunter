@@ -5,7 +5,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from api.vacancies import crud
 from api.vacancies.dependencies import vacancy_by_id
-from api.vacancies.schemas import VacancySchema, VacancyCreate, VacancyUpdate
+from api.vacancies.schemas import VacancyCreate, VacancySchema, VacancyUpdate
 from core.models import db_helper
 
 router = APIRouter(
