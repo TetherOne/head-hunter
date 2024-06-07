@@ -10,7 +10,7 @@ if TYPE_CHECKING:
 
 class Resume(Base):
     image: Mapped[Optional[str]]
-    job_tittle: Mapped[str]
+    tittle: Mapped[str]
     description: Mapped[str]
     salary: Mapped[int]
     contact: Mapped["Contact"] = relationship(

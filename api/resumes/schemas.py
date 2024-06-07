@@ -5,7 +5,7 @@ from pydantic import BaseModel
 
 
 class ResumeBase(BaseModel):
-    job_tittle: str
+    tittle: str
     description: str
     salary: int
 
