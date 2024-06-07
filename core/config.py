@@ -36,14 +36,14 @@ class S3Config(BaseModel):
 
 
 class AuthJWT(BaseModel):
-    private_key_path: str = "env/jwt-private.pem"
-    public_key_path: str = "env/jwt-public.pem"
+    private_key_path: str = "envs/jwt-private.pem"
+    public_key_path: str = "envs/jwt-public.pem"
     algorithm: str = "RS256"
 
 
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(
-        env_file="env/.env",
+        env_file="envs/.envs",
         case_sensitive=False,
         env_nested_delimiter="__",
         env_prefix="FAST_API_HH__",
