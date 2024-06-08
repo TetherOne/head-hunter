@@ -1,11 +1,12 @@
 from typing import Annotated
 
-from fastapi import APIRouter, Depends, status
+from fastapi import APIRouter, Depends, status, HTTPException
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from api.users import crud
 from api.users.crud import get_user_by_email
 from api.users.schemas import UserRegister, UserSchema, UserLogin
+from api.users.utils import generate_token, validate_password
 from core.models import db_helper
 
 router = APIRouter(tags=["Users"])
@@ -39,12 +40,27 @@ async def auth_token(
         Depends(db_helper.session_getter),
     ],
 ):
-    pass
-
-
-@router.get("/{email}")
-async def read_user(
-    email: str,
-    session: Annotated[AsyncSession, Depends(db_helper.session_getter)],
-):
-    return await get_user_by_email(email=email, session=session)
+    user = await get_user_by_email(
+        session=session,
+        email=user_login.email,
+    )
+    if user:
+        if not validate_password(
+            user_login.password,
+            user.password,
+        ):
+            raise HTTPException(
+                status_code=status.HTTP_403_FORBIDDEN,
+                detail="Invalid credentials",
+            )
+        else:
+            user.token = generate_token()
+            await session.commit()
+            return {
+                "bearer": user.token,
+            }
+    else:
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Invalid credentials",
+        )

@@ -35,3 +35,7 @@ def validate_password(
         password.encode(),
         hashed_password.encode(),
     )
+
+
+def generate_token():
+    return str(uuid.uuid4())

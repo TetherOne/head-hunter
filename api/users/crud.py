@@ -33,6 +33,4 @@ async def get_user_by_email(
         ),
     )
     user = result.scalars().first()
-    if user is None:
-        return "User not found"
     return user
