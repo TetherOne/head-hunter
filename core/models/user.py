@@ -13,6 +13,7 @@ class User(Base):
         unique=True,
     )
     password: Mapped[str]
+    token: Mapped[str | None]
     favorites = relationship(
         "Favorite",
         back_populates="user",

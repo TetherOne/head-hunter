@@ -1,3 +1,4 @@
+from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from api.users.schemas import UserRegister
@@ -19,4 +20,19 @@ async def register_user(
     session.add(user)
     await session.commit()
     await session.refresh(user)
+    return user
+
+
+async def get_user_by_email(
+    email: str,
+    session: AsyncSession,
+) -> User:
+    result = await session.execute(
+        select(User).filter(
+            User.email == email,
+        ),
+    )
+    user = result.scalars().first()
+    if user is None:
+        return "User not found"
     return user

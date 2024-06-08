@@ -23,3 +23,8 @@ class UserUpdate(UserRegister):
     username: str | None = None
     email: EmailStr | None = None
     password: str | None = None
+
+
+class UserLogin(BaseModel):
+    email: EmailStr
+    password: str
