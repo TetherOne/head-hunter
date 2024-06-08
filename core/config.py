@@ -43,7 +43,7 @@ class AuthJWT(BaseModel):
 
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(
-        env_file="envs/.envs",
+        env_file="envs/.env",
         case_sensitive=False,
         env_nested_delimiter="__",
         env_prefix="FAST_API_HH__",

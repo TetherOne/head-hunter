@@ -4,6 +4,7 @@ services:
   app:
     build: .
     container_name: hh-app
+    restart: on-failure
     command: uvicorn main:hh_app --host 0.0.0.0 --port 8000 --reload
     volumes:
       - .:/head-hunter
@@ -18,16 +19,16 @@ services:
   db:
     image: postgres
     container_name: hh-db
-    environment:
-      POSTGRES_DB: hh-db
-      POSTGRES_USER: admin
-      POSTGRES_PASSWORD: admin
+    restart: on-failure
+    env_file:
+      - ./envs/db.env
     ports:
       - "5428:5432"
 
   redis:
     image: redis
     container_name: hh-redis
+    restart: on-failure
     ports:
       - "6379:6379"
 
@@ -48,7 +49,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    restart: always
+    restart: on-failure
     command: celery -A api.email.tasks worker -l info
     volumes:
       - .:/head-hunter
