@@ -1,11 +1,14 @@
-FROM python:3.11.4-slim
+FROM python:3.11.6-bookworm
 
-RUN mkdir /head-hunter
+ENV PYTHONUNBUFFERED=1
 
 WORKDIR /head-hunter
 
-COPY requirements.txt .
+RUN pip install --upgrade pip "poetry==1.6.1"
+RUN poetry config virtualenvs.create false
 
-RUN pip install -r requirements.txt
+COPY pyproject.toml poetry.lock ./
+
+RUN poetry install
 
 COPY . .
