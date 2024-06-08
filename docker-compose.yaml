@@ -4,8 +4,9 @@ services:
   app:
     build: .
     container_name: hh-app
-    restart: on-failure
-    command: uvicorn main:hh_app --host 0.0.0.0 --port 8000 --reload
+    restart: always
+    command: sh -c "alembic upgrade head &&
+                    uvicorn main:qr_app --host 0.0.0.0 --port 8000 --reload"
     volumes:
       - .:/head-hunter
     ports:
