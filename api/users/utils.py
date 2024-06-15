@@ -4,14 +4,14 @@ import bcrypt
 from fastapi import HTTPException, status
 
 
-async def check_password(qrcode_update, qrcode):
+async def check_password(login_form, user):
     """
     Проверка пароля
     """
-    if qrcode_update.password:
+    if login_form.password:
         if not validate_password(
-            qrcode_update.password,
-            qrcode.password,
+            login_form.password,
+            user.password,
         ):
             raise HTTPException(
                 status_code=status.HTTP_403_FORBIDDEN,
