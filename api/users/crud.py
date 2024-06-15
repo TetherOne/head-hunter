@@ -1,7 +1,9 @@
+from fastapi import HTTPException
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
+from starlette import status
 
-from api.users.schemas import UserRegister
+from api.users.schemas import UserRegister, UserLogin
 from api.users.utils import hash_password
 from core.models import User
 
@@ -24,13 +26,14 @@ async def register_user(
 
 
 async def get_user_by_email(
-    email: str,
+    login_form: UserLogin,
     session: AsyncSession,
 ) -> User:
-    result = await session.execute(
-        select(User).filter(
-            User.email == email,
-        ),
-    )
+    result = await session.execute(select(User).filter(User.email == login_form.email))
     user = result.scalars().first()
+    if user is None:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="User not found",
+        )
     return user
