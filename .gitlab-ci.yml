@@ -1,17 +1,23 @@
-image: docker/compose:latest
-
-services:
-  - docker:dind
+stages:
+  - test
 
 variables:
   DOCKER_DRIVER: overlay2
 
-stages:
-  - test
-
 test-job:
   stage: test
+  image: docker:latest
+  services:
+    - docker:dind
+  before_script:
+    - docker info
   script:
-    - docker-compose -f docker/test/docker-compose.yaml down
+    - docker-compose -f docker/test/docker-compose.yaml down --volumes --remove-orphans
     - docker-compose -f docker/test/docker-compose.yaml build
     - docker-compose -f docker/test/docker-compose.yaml up --abort-on-container-exit
+  after_script:
+    - docker-compose -f docker/test/docker-compose.yaml down --volumes --remove-orphans
+  artifacts:
+    paths:
+      - test-reports/
+    when: always
