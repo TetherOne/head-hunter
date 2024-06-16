@@ -1,8 +1,8 @@
-version: '3.7'
+version: '3.9'
 
 services:
   app:
-    image: head-hunter:test
+    image: hh-app:test
     build:
       context: ../../.
     container_name: hh-app

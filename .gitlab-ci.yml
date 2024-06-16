@@ -1,23 +1,9 @@
-image: docker:latest
-
-services:
-  - docker:dind
-
-variables:
-  DOCKER_DRIVER: overlay2
-  DOCKER_TLS_CERTDIR: ""
-
-before_script:
-  - apk update
-  - apk add --no-cache py3-pip
-  - pip3 install docker-compose
-
 stages:
   - test
 
 test-job:
   stage: test
   script:
-    - docker-compose -f docker/test/docker-compose.yaml down
-    - docker-compose -f docker/test/docker-compose.yaml build
-    - docker-compose -f docker/test/docker-compose.yaml up --abort-on-container-exit
+    - docker compose -f docker/test/docker-compose.yaml down
+    - docker compose -f docker/test/docker-compose.yaml build
+    - docker compose -f docker/test/docker-compose.yaml up --abort-on-container-exit
