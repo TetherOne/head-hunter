@@ -8,8 +8,6 @@ services:
     container_name: hh-app
     restart: always
     command: sh -c "sleep 10 && pytest ."
-    volumes:
-      - ../../:/head-hunter
     ports:
       - "8001:8000"
     depends_on:
