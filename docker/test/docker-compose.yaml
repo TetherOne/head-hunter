@@ -1,0 +1,25 @@
+version: '3.7'
+
+services:
+  app:
+    image: head-hunter:test
+    build:
+      context: ../../.
+    container_name: hh-app
+    restart: always
+    command: sh -c "sleep 10 && pytest ."
+    volumes:
+      - .:/head-hunter
+    ports:
+      - "8001:8000"
+    depends_on:
+      - db
+
+  db:
+    image: postgres
+    container_name: hh-db
+    env_file:
+      - $env
+    restart: on-failure
+    ports:
+      - "5428:5432"
