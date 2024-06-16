@@ -10,10 +10,9 @@ stages:
   - test
 
 test-job:
-  image: ruby:3.1
   stage: test
+  image: docker/compose:1.29.2 # Используйте последнюю версию Docker Compose
   script:
-    - apt-get update && apt-get install -y docker-compose
     - docker-compose -f docker/test/docker-compose.yaml down
     - docker-compose -f docker/test/docker-compose.yaml build
     - docker-compose -f docker/test/docker-compose.yaml up --abort-on-container-exit
