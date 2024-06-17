@@ -2,7 +2,9 @@ version: '3.7'
 
 services:
   app:
-    build: .
+    build:
+      context: .
+      dockerfile: docker/web/Dockerfile
     container_name: hh-app
     restart: always
     command: sh -c "alembic upgrade head &&
@@ -49,7 +51,7 @@ services:
   worker:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: docker/web/Dockerfile
     restart: on-failure
     command: celery -A api.email.tasks worker -l info
     volumes:
