@@ -53,7 +53,7 @@ services:
       context: .
       dockerfile: docker/web/Dockerfile
     restart: on-failure
-    command: celery -A api.email.tasks worker -l info
+    command: celery -A src.api.email.tasks worker -l info
     volumes:
       - .:/head-hunter
     depends_on:
