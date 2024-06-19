@@ -3,6 +3,7 @@ from typing import Annotated
 from fastapi import APIRouter, Depends, Query, status
 from sqlalchemy.ext.asyncio import AsyncSession
 
+from src.core.models.cache_helper import LAsyncRedisCache
 from src.api.vacancies import crud
 from src.api.vacancies.dependencies import vacancy_by_id
 from src.api.vacancies.schemas import VacancyCreate, VacancySchema, VacancyUpdate
@@ -11,6 +12,7 @@ from src.core.models import db_helper
 router = APIRouter(
     tags=["Vacancies"],
 )
+cache = LAsyncRedisCache()
 
 
 @router.get(
@@ -32,11 +34,17 @@ async def get_vacancies(
         description="Limit the number of vacancies",
     ),
 ):
-    return await crud.get_vacancies(
-        session=session,
-        skip=skip,
-        limit=limit,
-    )
+    cache_key = f"vacancies:{skip}:{limit}"
+    cached_vacancies = await cache.get(cache_key)
+
+    if cached_vacancies:
+        print("From cache")
+        return cached_vacancies
+
+    vacancies = await get_vacancies(session, skip, limit)
+    await cache.set(cache_key, vacancies)
+    print("From db")
+    return vacancies
 
 
 @router.get(
