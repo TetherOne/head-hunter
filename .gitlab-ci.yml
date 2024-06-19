@@ -2,10 +2,15 @@ stages:
   - test
 
 variables:
+  # Установите путь к директории с тестами
   TEST_DIR: "src/tests"
 
 test_job:
   stage: test
+  image: python:3.10  # Используем образ с Python
+  before_script:
+    - pip install pytest  # Устанавливаем pytest
+    - pip install -r requirements.txt  # Устанавливаем зависимости вашего проекта, если необходимо
   script:
     - echo "Running tests in $TEST_DIR"
     - pytest $TEST_DIR
