@@ -3,7 +3,7 @@ from typing import Annotated
 from fastapi import APIRouter, Depends, Query, status
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from src.core.models.cache_helper import LAsyncRedisCache
+from src.core.models.cache_helper import AsyncRedisCache
 from src.api.vacancies import crud
 from src.api.vacancies.dependencies import vacancy_by_id
 from src.api.vacancies.schemas import VacancyCreate, VacancySchema, VacancyUpdate
@@ -12,7 +12,7 @@ from src.core.models import db_helper
 router = APIRouter(
     tags=["Vacancies"],
 )
-cache = LAsyncRedisCache()
+cache = AsyncRedisCache()
 
 
 @router.get(
@@ -41,7 +41,7 @@ async def get_vacancies(
         print("From cache")
         return cached_vacancies
 
-    vacancies = await get_vacancies(session, skip, limit)
+    vacancies = await crud.get_vacancies(session, skip, limit)
     await cache.set(cache_key, vacancies)
     print("From db")
     return vacancies

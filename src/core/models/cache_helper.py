@@ -3,7 +3,7 @@ import json
 from typing import Optional
 
 
-class LAsyncRedisCache:
+class AsyncRedisCache:
     def __init__(self, host: str = "hh-redis", port: int = 6379, db: int = 0):
         self.redis = redis.Redis(host=host, port=port, db=db, decode_responses=True)
 
