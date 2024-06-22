@@ -13,7 +13,7 @@ test_job:
     - poetry config virtualenvs.create false
     - poetry install
   script:
-    - echo "Running tests in $TEST_DIR"
+    - echo "Running tests"
     - pytest $TEST_DIR
   only:
     - branches
