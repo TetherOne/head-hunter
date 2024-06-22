@@ -1,10 +1,11 @@
 from typing import Annotated
 
-from fastapi import Depends, HTTPException, Path, status
+from fastapi import Depends, Path
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from src.api.contacts import crud
 from src.core.models import Contact, db_helper
+from utils.errors import NotFound
 
 
 async def contact_by_id(
@@ -25,7 +26,4 @@ async def contact_by_id(
     if contact is not None:
         return contact
 
-    raise HTTPException(
-        status_code=status.HTTP_404_NOT_FOUND,
-        detail=f"Contact {contact_id} not found.",
-    )
+    raise NotFound()

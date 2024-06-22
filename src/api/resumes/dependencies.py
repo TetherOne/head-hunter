@@ -1,10 +1,11 @@
 from typing import Annotated
 
-from fastapi import Depends, HTTPException, Path, status
+from fastapi import Depends, Path
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from src.api.resumes import crud
 from src.core.models import Resume, db_helper
+from utils.errors import NotFound
 
 
 async def resume_by_id(
@@ -25,7 +26,4 @@ async def resume_by_id(
     if resume is not None:
         return resume
 
-    raise HTTPException(
-        status_code=status.HTTP_404_NOT_FOUND,
-        detail=f"Resume {resume_id} not found.",
-    )
+    raise NotFound()

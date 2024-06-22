@@ -1,10 +1,11 @@
 from typing import Annotated
 
-from fastapi import Depends, HTTPException, Path, status
+from fastapi import Depends, Path
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from src.api.vacancies import crud
 from src.core.models import Vacancy, db_helper
+from utils.errors import NotFound
 
 
 async def vacancy_by_id(
@@ -25,7 +26,4 @@ async def vacancy_by_id(
     if vacancy is not None:
         return vacancy
 
-    raise HTTPException(
-        status_code=status.HTTP_404_NOT_FOUND,
-        detail=f"Vacancy {vacancy_id} not found.",
-    )
+    raise NotFound()

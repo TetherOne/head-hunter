@@ -1,10 +1,11 @@
 from typing import Annotated
 
-from fastapi import Depends, HTTPException, Path, status
+from fastapi import Depends, Path
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from src.api.favorites import crud
 from src.core.models import Favorite, db_helper
+from utils.errors import NotFound
 
 
 async def favorite_by_id(
@@ -25,7 +26,4 @@ async def favorite_by_id(
     if favorite is not None:
         return favorite
 
-    raise HTTPException(
-        status_code=status.HTTP_404_NOT_FOUND,
-        detail=f"Favorite {favorite_id} not found.",
-    )
+    raise NotFound()
