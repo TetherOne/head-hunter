@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from pydantic import BaseModel
 
 
@@ -13,11 +15,10 @@ class VacancyBase(BaseModel):
 
 class VacancySchema(VacancyBase):
     id: int
-    # created_at: datetime
-    # updated_at: datetime
+    created_at: datetime
+    updated_at: datetime
 
     class Config:
-        orm_mode = True
         from_attributes = True
 
 

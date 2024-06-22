@@ -24,14 +24,8 @@ async def get_resumes(
         AsyncSession,
         Depends(db_helper.session_getter),
     ],
-    skip: int = Query(
-        0,
-        description="Skip resumes",
-    ),
-    limit: int = Query(
-        2,
-        description="Limit the number of resumes",
-    ),
+    skip: int = Query(0, description="Skip resumes"),
+    limit: int = Query(2, description="Limit the number of resumes"),
 ):
     return await crud.get_resumes(
         session=session,

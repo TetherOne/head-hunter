@@ -23,18 +23,9 @@ async def get_contacts(
         AsyncSession,
         Depends(db_helper.session_getter),
     ],
-    resume_id: int = Query(
-        None,
-        description="Filter contacts by resume_id",
-    ),
-    skip: int = Query(
-        0,
-        description="Skip contacts",
-    ),
-    limit: int = Query(
-        2,
-        description="Limit the number of contact",
-    ),
+    resume_id: int = Query(None, description="Filter contacts by resume_id"),
+    skip: int = Query(0, description="Skip contacts"),
+    limit: int = Query(2, description="Limit the number of contact"),
 ):
     return await crud.get_contacts(
         session=session,

@@ -25,26 +25,18 @@ async def get_vacancies(
         AsyncSession,
         Depends(db_helper.session_getter),
     ],
-    skip: int = Query(
-        0,
-        description="Skip vacancies",
-    ),
-    limit: int = Query(
-        2,
-        description="Limit the number of vacancies",
-    ),
+    skip: int = Query(0, description="Skip vacancies"),
+    limit: int = Query(2, description="Limit the number of vacancies"),
 ):
     cache_key = f"vacancies:{skip}:{limit}"
     cached_vacancies = await cache.get(cache_key)
 
     if cached_vacancies:
-        print("From cache")
         return cached_vacancies
 
     vacancies = await crud.get_vacancies(session, skip, limit)
     vacancies_data = [VacancySchema.from_orm(vacancy).dict() for vacancy in vacancies]
     await cache.set(cache_key, vacancies_data)
-    print("From db")
     return vacancies_data
 
 
