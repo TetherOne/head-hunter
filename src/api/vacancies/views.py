@@ -42,9 +42,10 @@ async def get_vacancies(
         return cached_vacancies
 
     vacancies = await crud.get_vacancies(session, skip, limit)
-    await cache.set(cache_key, vacancies)
+    vacancies_data = [VacancySchema.from_orm(vacancy).dict() for vacancy in vacancies]
+    await cache.set(cache_key, vacancies_data)
     print("From db")
-    return vacancies
+    return vacancies_data
 
 
 @router.get(

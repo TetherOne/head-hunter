@@ -20,6 +20,12 @@ class ApiPrefix(BaseModel):
     users: str = "/users"
 
 
+class RedisConfig(BaseSettings):
+    url: str = "envs/redis.env"
+    port: int = "envs/redis.env"
+    db: int = "envs/redis.env"
+
+
 class DatabaseConfig(BaseModel):
     url: PostgresDsn
     echo: bool = False
@@ -35,12 +41,6 @@ class S3Config(BaseModel):
     bucket_name: str
 
 
-class AuthJWT(BaseModel):
-    private_key_path: str = "envs/jwt-private.pem"
-    public_key_path: str = "envs/jwt-public.pem"
-    algorithm: str = "RS256"
-
-
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(
         env_file="envs/.env",
@@ -53,7 +53,7 @@ class Settings(BaseSettings):
     s3: S3Config
     db: DatabaseConfig
     email: EmailConfig
-    auth_jwt: AuthJWT = AuthJWT()
+    cache: RedisConfig
 
 
 settings = Settings()
