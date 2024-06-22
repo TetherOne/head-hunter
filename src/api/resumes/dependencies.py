@@ -5,7 +5,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from src.api.resumes import crud
 from src.core.models import Resume, db_helper
-from utils.errors import NotFound
+from src.utils.errors import NotFound
 
 
 async def resume_by_id(

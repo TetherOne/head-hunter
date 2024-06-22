@@ -5,7 +5,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from src.api.contacts import crud
 from src.core.models import Contact, db_helper
-from utils.errors import NotFound
+from src.utils.errors import NotFound
 
 
 async def contact_by_id(

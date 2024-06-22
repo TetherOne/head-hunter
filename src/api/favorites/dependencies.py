@@ -5,7 +5,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from src.api.favorites import crud
 from src.core.models import Favorite, db_helper
-from utils.errors import NotFound
+from src.utils.errors import NotFound
 
 
 async def favorite_by_id(

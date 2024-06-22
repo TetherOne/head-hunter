@@ -5,7 +5,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from src.api.vacancies import crud
 from src.core.models import Vacancy, db_helper
-from utils.errors import NotFound
+from src.utils.errors import NotFound
 
 
 async def vacancy_by_id(
