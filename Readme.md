@@ -1,11 +1,11 @@
 # Head Hunter
-## API for finding jobs and creating vacancies
+## Description
+API for searching jobs and creating vacancies
 
 ### Technologies
 -  FastAPI, SQLAlchemy, Pydantic
 -  PostgreSQL
 -  Redis
--  Celery
--  RabbitMQ
+-  Celery + RabbitMQ
 -  S3 storage
 -  Black, Autoflake
