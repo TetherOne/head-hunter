@@ -2,7 +2,7 @@
 ## API for finding jobs and creating vacancies
 
 ### Technologies
--  FastAPI, SQLAlchemy, Pydantic, Poetry
+-  FastAPI, SQLAlchemy, Pydantic
 -  PostgreSQL
 -  Redis
 -  Celery
