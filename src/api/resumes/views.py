@@ -70,7 +70,7 @@ async def create_resume(
     "/update/{resume_id}/",
     status_code=status.HTTP_201_CREATED,
 )
-async def update_qrcode(
+async def update_resume(
     session: Annotated[
         AsyncSession,
         Depends(db_helper.session_getter),
